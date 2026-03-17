@@ -48,7 +48,8 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label for="requested-by" class="block text-sm font-medium text-slate-600 mb-1">Requested By <span class="text-red-400">*</span></label>
-              <select id="requested-by" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></select>
+              <select id="requested-by" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500" onchange="toggleOtherName()"></select>
+              <input type="text" id="requested-by-other" placeholder="Enter your name" class="hidden w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-2">
             </div>
             <div>
               <label for="business-unit" class="block text-sm font-medium text-slate-600 mb-1">Business Unit <span class="text-red-400">*</span></label>
@@ -56,7 +57,7 @@
             </div>
             <div>
               <label for="project-name" class="block text-sm font-medium text-slate-600 mb-1">Project Name <span class="text-red-400">*</span></label>
-              <select id="project-name" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></select>
+              <input type="text" id="project-name" required placeholder="Enter project name" class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
             <div>
               <label for="date-requested" class="block text-sm font-medium text-slate-600 mb-1">Date Requested <span class="text-red-400">*</span></label>
@@ -91,11 +92,17 @@
             Individual Items
           </h2>
 
-          <!-- Category Filters -->
-          <div id="category-filters" class="flex flex-wrap gap-2 mb-5"></div>
+          <!-- Search + Category Filters -->
+          <div class="flex flex-col sm:flex-row gap-3 mb-5">
+            <div class="relative flex-1">
+              <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input type="text" id="product-search" placeholder="Search by name, category, or vendor..." class="w-full border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div id="category-filters" class="flex flex-wrap gap-2"></div>
+          </div>
 
-          <!-- Products Grid -->
-          <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+          <!-- Products List -->
+          <div id="products-grid">
             <div class="col-span-full flex justify-center py-8"><div class="spinner"></div></div>
           </div>
         </section>
@@ -182,6 +189,21 @@
       window._toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
+    // Toggle "Other" name input
+    function toggleOtherName() {
+      const select = document.getElementById('requested-by');
+      const otherInput = document.getElementById('requested-by-other');
+      if (select.value === 'Other') {
+        otherInput.classList.remove('hidden');
+        otherInput.required = true;
+        otherInput.focus();
+      } else {
+        otherInput.classList.add('hidden');
+        otherInput.required = false;
+        otherInput.value = '';
+      }
+    }
+
     // Mobile cart toggle
     function toggleCart() {
       const sidebar = document.getElementById('cart-sidebar');
@@ -205,14 +227,6 @@
         opt.value = unit;
         opt.textContent = unit;
         businessUnit.appendChild(opt);
-      });
-
-      const projectName = document.getElementById('project-name');
-      CONFIG.PROJECT_NAMES.forEach(name => {
-        const opt = document.createElement('option');
-        opt.value = name;
-        opt.textContent = name;
-        projectName.appendChild(opt);
       });
 
       document.getElementById('date-requested').valueAsDate = new Date();
@@ -258,6 +272,11 @@
 
       Products.render(products);
       Kits.render(kits);
+
+      // Wire up product search
+      document.getElementById('product-search').addEventListener('input', (e) => {
+        Products.setSearch(e.target.value);
+      });
     }
 
     initApp();

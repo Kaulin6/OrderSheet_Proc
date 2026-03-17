@@ -15,7 +15,10 @@ const Order = (() => {
       return;
     }
 
-    const requestedBy = document.getElementById('requested-by').value;
+    let requestedBy = document.getElementById('requested-by').value;
+    if (requestedBy === 'Other') {
+      requestedBy = document.getElementById('requested-by-other').value.trim();
+    }
     const businessUnit = document.getElementById('business-unit').value;
     const projectName = document.getElementById('project-name').value;
     const dateRequested = document.getElementById('date-requested').value;

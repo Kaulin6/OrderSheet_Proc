@@ -9,13 +9,11 @@ body {
   background-color: #f8fafc;
 }
 
-/* Product / Kit Cards */
-.product-card,
+/* Kit Cards */
 .kit-card {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.product-card:hover,
 .kit-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
@@ -47,16 +45,6 @@ body {
   0% { transform: scale(0.5); }
   70% { transform: scale(1.2); }
   100% { transform: scale(1); }
-}
-
-/* Product image placeholder */
-.product-image-placeholder {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  border-bottom: 1px solid #e2e8f0;
 }
 
 /* Quantity input */

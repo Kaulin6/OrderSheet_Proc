@@ -32,23 +32,6 @@ const LOCAL_PRODUCTS = [
   { id: 27, name: 'Gravel Bag',                        category: 'Construction',       vendor: 'Rockland',         url: 'https://rocklandsupplies.com/product/bulk-bag-road-crush/', price: 185.00 },
 ];
 
-// SVG icons by category (inline, no external files needed)
-const CATEGORY_ICONS = {
-  'Security': `<svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>`,
-  'MEP': `<svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
-  'Signage': `<svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2z"/></svg>`,
-  'Construction': `<svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>`,
-  'Temporary Facility': `<svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>`,
-};
-
-const CATEGORY_COLORS = {
-  'Security': 'bg-blue-50 border-blue-200',
-  'MEP': 'bg-amber-50 border-amber-200',
-  'Signage': 'bg-green-50 border-green-200',
-  'Construction': 'bg-orange-50 border-orange-200',
-  'Temporary Facility': 'bg-purple-50 border-purple-200',
-};
-
 const CATEGORY_BADGE_COLORS = {
   'Security': 'bg-blue-100 text-blue-700',
   'MEP': 'bg-amber-100 text-amber-700',
@@ -60,6 +43,7 @@ const CATEGORY_BADGE_COLORS = {
 const Products = (() => {
   let allProducts = [];
   let currentCategory = 'All';
+  let searchQuery = '';
 
   async function load() {
     // Try Supabase first, fall back to local data
@@ -81,55 +65,69 @@ const Products = (() => {
     return allProducts;
   }
 
+  function getFiltered(products) {
+    let filtered = currentCategory === 'All'
+      ? products
+      : products.filter(p => p.category === currentCategory);
+
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      filtered = filtered.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        (p.vendor && p.vendor.toLowerCase().includes(q))
+      );
+    }
+
+    return filtered;
+  }
+
   function render(products, containerId = 'products-grid') {
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    const filtered = currentCategory === 'All'
-      ? products
-      : products.filter(p => p.category === currentCategory);
+    const filtered = getFiltered(products);
 
     if (filtered.length === 0) {
       container.innerHTML = `
-        <div class="col-span-full text-center py-12 text-slate-400">
-          No products found in this category.
+        <div class="text-center py-12 text-slate-400">
+          No products found.
         </div>`;
       return;
     }
 
-    container.innerHTML = filtered.map(product => {
-      const icon = CATEGORY_ICONS[product.category] || CATEGORY_ICONS['Security'];
+    const rows = filtered.map(product => {
       const badgeColor = CATEGORY_BADGE_COLORS[product.category] || 'bg-slate-100 text-slate-600';
+      const nameHtml = product.url
+        ? `<a href="${product.url}" target="_blank" rel="noopener" class="text-slate-800 hover:text-blue-600 hover:underline">${product.name}</a>`
+        : product.name;
 
-      return `
-      <div class="product-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col" data-product-id="${product.id}">
-        <div class="product-image-placeholder flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100" style="height:140px;">
-          ${icon}
-        </div>
-        <div class="p-4 flex flex-col flex-1">
-          <div class="flex items-start justify-between gap-2 mb-1">
-            <h3 class="font-semibold text-slate-800 text-sm leading-tight flex-1">${product.name}</h3>
-          </div>
-          <div class="flex items-center gap-2 mb-3">
-            <span class="text-xs px-2 py-0.5 rounded-full ${badgeColor}">${product.category}</span>
-            <span class="text-xs text-slate-400">${product.vendor || 'Vendor TBD'}</span>
-          </div>
-          <div class="mt-auto flex items-center justify-between">
-            <span class="text-lg font-bold ${product.price ? 'text-slate-800' : 'text-slate-400'}">
-              ${product.price ? '$' + product.price.toFixed(2) : 'Price TBD'}
-            </span>
-            <div class="flex items-center gap-1">
-              <input type="number" min="1" value="1" class="qty-input border border-slate-300 rounded-lg px-2 py-1.5 text-sm" id="qty-product-${product.id}">
-              <button onclick="Cart.addProduct(${product.id}, document.getElementById('qty-product-${product.id}').value)"
-                class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1.5 rounded-lg transition-colors font-medium">
-                Add
-              </button>
-            </div>
-          </div>
-          ${product.url ? `<a href="${product.url}" target="_blank" rel="noopener" class="text-xs text-blue-500 hover:underline mt-2 inline-block">View product &rarr;</a>` : ''}
-        </div>
-      </div>`;
+      return `<tr class="border-b border-slate-100 hover:bg-slate-50" data-product-id="${product.id}">
+        <td class="py-1.5 pr-2 pl-3 text-sm font-medium">${nameHtml}</td>
+        <td class="py-1.5 px-2"><span class="text-[11px] px-1.5 py-0.5 rounded-full whitespace-nowrap ${badgeColor}">${product.category}</span></td>
+        <td class="py-1.5 px-2 text-xs text-slate-400 whitespace-nowrap">${product.vendor || '—'}</td>
+        <td class="py-1.5 px-2 text-sm font-semibold text-right whitespace-nowrap ${product.price ? 'text-slate-800' : 'text-slate-400'}">${product.price ? '$' + product.price.toFixed(2) : 'TBD'}</td>
+        <td class="py-1.5 pl-2 pr-3 text-right whitespace-nowrap">
+          <input type="number" min="1" value="1" class="qty-input border border-slate-200 rounded px-1 py-0.5 text-xs w-10 text-center" id="qty-product-${product.id}">
+          <button onclick="Cart.addProduct(${product.id}, document.getElementById('qty-product-${product.id}').value)"
+            class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-0.5 rounded font-medium ml-1">+</button>
+        </td>
+      </tr>`;
     }).join('');
+
+    container.innerHTML = `
+      <table class="w-full bg-white rounded-lg border border-slate-200 overflow-hidden">
+        <thead>
+          <tr class="bg-slate-50 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-400 font-medium">
+            <th class="py-1.5 pr-2 text-left pl-3">Name</th>
+            <th class="py-1.5 px-2 text-left">Category</th>
+            <th class="py-1.5 px-2 text-left">Vendor</th>
+            <th class="py-1.5 px-2 text-right">Price</th>
+            <th class="py-1.5 pl-2 text-right pr-3">Qty</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-50">${rows}</tbody>
+      </table>`;
   }
 
   function setCategory(category) {
@@ -137,6 +135,11 @@ const Products = (() => {
     document.querySelectorAll('.category-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.category === category);
     });
+    render(allProducts);
+  }
+
+  function setSearch(query) {
+    searchQuery = query.trim();
     render(allProducts);
   }
 
@@ -148,5 +151,5 @@ const Products = (() => {
     return allProducts;
   }
 
-  return { load, render, setCategory, getById, getAll };
+  return { load, render, setCategory, setSearch, getById, getAll };
 })();

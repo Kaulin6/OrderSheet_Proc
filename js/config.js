@@ -40,6 +40,5 @@ const CONFIG = {
     'MEP',
     'Signage',
     'Construction',
-    'Temporary Facility',
   ],
 };

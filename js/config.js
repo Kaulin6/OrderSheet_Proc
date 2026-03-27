@@ -21,7 +21,7 @@ const CONFIG = {
   REQUESTER_EMAILS: {
     'Josh M.': 'josh@storagehq.ca',
     'Keegan W.': 'keegan@storagehq.ca',
-    'Luz': 'luz@storagehq.ca',
+    'Luz': 'luzcenit@storagehq.ca',
     'Lance M.': 'lance@storagehq.ca',
   },
 

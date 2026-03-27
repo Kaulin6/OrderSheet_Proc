@@ -99,13 +99,19 @@ const Products = (() => {
     const rows = filtered.map(product => {
       const badgeColor = CATEGORY_BADGE_COLORS[product.category] || 'bg-slate-100 text-slate-600';
       const nameHtml = product.url
-        ? `<a href="${product.url}" target="_blank" rel="noopener" class="text-slate-800 hover:text-blue-600 hover:underline">${product.name}</a>`
+        ? `<a href="${product.url}" target="_blank" rel="noopener" class="text-slate-800 underline hover:text-blue-600">${product.name}</a>`
         : product.name;
 
-      return `<tr class="border-b border-slate-100 hover:bg-slate-50" data-product-id="${product.id}">
+      const vendorHtml = product.vendor
+        ? (product.url
+          ? `<a href="${product.url}" target="_blank" rel="noopener" class="text-slate-400 hover:text-blue-600 hover:underline">${product.vendor}</a>`
+          : product.vendor)
+        : '—';
+
+      return `<tr class="border-b border-slate-300 hover:bg-slate-50" data-product-id="${product.id}">
         <td class="py-1.5 pr-2 pl-3 text-sm font-medium">${nameHtml}</td>
         <td class="py-1.5 px-2"><span class="text-[11px] px-1.5 py-0.5 rounded-full whitespace-nowrap ${badgeColor}">${product.category}</span></td>
-        <td class="py-1.5 px-2 text-xs text-slate-400 whitespace-nowrap">${product.vendor || '—'}</td>
+        <td class="py-1.5 px-2 text-xs whitespace-nowrap">${vendorHtml}</td>
         <td class="py-1.5 px-2 text-sm font-semibold text-right whitespace-nowrap ${product.price ? 'text-slate-800' : 'text-slate-400'}">${product.price ? '$' + product.price.toFixed(2) : 'TBD'}</td>
         <td class="py-1.5 pl-2 pr-3 text-right whitespace-nowrap">
           <input type="number" min="1" value="1" class="qty-input border border-slate-200 rounded px-1 py-0.5 text-xs w-10 text-center" id="qty-product-${product.id}">
@@ -116,17 +122,17 @@ const Products = (() => {
     }).join('');
 
     container.innerHTML = `
-      <table class="w-full bg-white rounded-lg border border-slate-200 overflow-hidden">
+      <table class="w-full bg-white rounded-lg border border-slate-400 overflow-hidden">
         <thead>
-          <tr class="bg-slate-50 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-400 font-medium">
+          <tr class="bg-slate-50 border-b border-slate-400 text-[11px] uppercase tracking-wider text-slate-400 font-medium">
             <th class="py-1.5 pr-2 text-left pl-3">Name</th>
             <th class="py-1.5 px-2 text-left">Category</th>
             <th class="py-1.5 px-2 text-left">Vendor</th>
             <th class="py-1.5 px-2 text-right">Price</th>
-            <th class="py-1.5 pl-2 text-right pr-3">Qty</th>
+            <th class="py-1.5 pl-2 text-center pr-3">Qty</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-slate-50">${rows}</tbody>
+        <tbody class="divide-y divide-slate-300">${rows}</tbody>
       </table>`;
   }
 

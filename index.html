@@ -50,6 +50,7 @@
               <label for="requested-by" class="block text-sm font-medium text-slate-600 mb-1">Requested By <span class="text-red-400">*</span></label>
               <select id="requested-by" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500" onchange="toggleOtherName()"></select>
               <input type="text" id="requested-by-other" placeholder="Enter your name" class="hidden w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-2">
+              <input type="email" id="requested-by-email" placeholder="Enter your email" class="hidden w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-2">
             </div>
             <div>
               <label for="business-unit" class="block text-sm font-medium text-slate-600 mb-1">Business Unit <span class="text-red-400">*</span></label>
@@ -159,7 +160,7 @@
         <p>Total: <strong id="conf-total" class="text-blue-700"></strong></p>
         <p><span id="conf-items"></span></p>
       </div>
-      <p class="text-xs text-slate-400 mb-5">A confirmation email has been sent to procurement.</p>
+      <p class="text-xs text-slate-400 mb-5">A confirmation email has been sent to procurement and the requester.</p>
       <button onclick="Order.closeConfirmation()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-2.5 rounded-xl transition-colors">
         Done
       </button>
@@ -193,14 +194,20 @@
     function toggleOtherName() {
       const select = document.getElementById('requested-by');
       const otherInput = document.getElementById('requested-by-other');
+      const emailInput = document.getElementById('requested-by-email');
       if (select.value === 'Other') {
         otherInput.classList.remove('hidden');
         otherInput.required = true;
+        emailInput.classList.remove('hidden');
+        emailInput.required = true;
         otherInput.focus();
       } else {
         otherInput.classList.add('hidden');
         otherInput.required = false;
         otherInput.value = '';
+        emailInput.classList.add('hidden');
+        emailInput.required = false;
+        emailInput.value = '';
       }
     }
 

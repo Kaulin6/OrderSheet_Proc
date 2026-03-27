@@ -17,6 +17,14 @@ const CONFIG = {
   // --- Email Recipients ---
   PROCUREMENT_EMAIL: 'kaulin@storagehq.ca',
 
+  // --- Requester Email Mapping ---
+  REQUESTER_EMAILS: {
+    'Josh M.': 'josh@storagehq.ca',
+    'Keegan W.': 'keegan@storagehq.ca',
+    'Luz': 'luz@storagehq.ca',
+    'Lance M.': 'lance@storagehq.ca',
+  },
+
   // --- Dropdown Options ---
   BUSINESS_UNITS: [
     'Development',

@@ -15,9 +15,14 @@ const Order = (() => {
       return;
     }
 
-    let requestedBy = document.getElementById('requested-by').value;
-    if (requestedBy === 'Other') {
+    const requestedBySelect = document.getElementById('requested-by').value;
+    let requestedBy = requestedBySelect;
+    let requesterEmail = '';
+    if (requestedBySelect === 'Other') {
       requestedBy = document.getElementById('requested-by-other').value.trim();
+      requesterEmail = document.getElementById('requested-by-email').value.trim();
+    } else {
+      requesterEmail = CONFIG.REQUESTER_EMAILS[requestedBySelect] || '';
     }
     const businessUnit = document.getElementById('business-unit').value;
     const projectName = document.getElementById('project-name').value;
@@ -78,7 +83,7 @@ const Order = (() => {
 
       // Send email via EmailJS if configured
       try {
-        await sendOrderEmail({ requestedBy, businessUnit, projectName, dateRequested, deadline, notes, totalPrice, orderData });
+        await sendOrderEmail({ requestedBy, requesterEmail, businessUnit, projectName, dateRequested, deadline, notes, totalPrice, orderData });
       } catch (emailError) {
         console.warn('Email failed (order still saved):', emailError);
       }
@@ -98,7 +103,7 @@ const Order = (() => {
     }
   }
 
-  async function sendOrderEmail({ requestedBy, businessUnit, projectName, dateRequested, deadline, notes, totalPrice, orderData }) {
+  async function sendOrderEmail({ requestedBy, requesterEmail, businessUnit, projectName, dateRequested, deadline, notes, totalPrice, orderData }) {
     const itemLines = orderData.map(item => {
       const price = item.unitPrice > 0 ? `$${item.lineTotal.toFixed(2)}` : 'TBD';
       let line = `${item.quantity}x ${item.name} — ${price}`;
@@ -110,6 +115,7 @@ const Order = (() => {
 
     const templateParams = {
       to_email: CONFIG.PROCUREMENT_EMAIL,
+      requester_email: requesterEmail,
       requested_by: requestedBy,
       business_unit: businessUnit,
       project_name: projectName,

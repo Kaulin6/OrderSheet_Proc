@@ -19,8 +19,8 @@ const Order = (() => {
     let requestedBy = requestedBySelect;
     let requesterEmail = '';
     if (requestedBySelect === 'Other') {
-      requestedBy = document.getElementById('requested-by-other').value.trim();
       requesterEmail = document.getElementById('requested-by-email').value.trim();
+      requestedBy = requesterEmail;
     } else {
       requesterEmail = CONFIG.REQUESTER_EMAILS[requestedBySelect] || '';
     }

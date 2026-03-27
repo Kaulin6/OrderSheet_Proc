@@ -49,7 +49,6 @@
             <div>
               <label for="requested-by" class="block text-sm font-medium text-slate-600 mb-1">Requested By <span class="text-red-400">*</span></label>
               <select id="requested-by" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500" onchange="toggleOtherName()"></select>
-              <input type="text" id="requested-by-other" placeholder="Enter your name" class="hidden w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-2">
               <input type="email" id="requested-by-email" placeholder="Enter your email" class="hidden w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-2">
             </div>
             <div>
@@ -193,18 +192,12 @@
     // Toggle "Other" name input
     function toggleOtherName() {
       const select = document.getElementById('requested-by');
-      const otherInput = document.getElementById('requested-by-other');
       const emailInput = document.getElementById('requested-by-email');
       if (select.value === 'Other') {
-        otherInput.classList.remove('hidden');
-        otherInput.required = true;
         emailInput.classList.remove('hidden');
         emailInput.required = true;
-        otherInput.focus();
+        emailInput.focus();
       } else {
-        otherInput.classList.add('hidden');
-        otherInput.required = false;
-        otherInput.value = '';
         emailInput.classList.add('hidden');
         emailInput.required = false;
         emailInput.value = '';

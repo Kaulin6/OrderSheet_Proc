@@ -35,6 +35,7 @@ const LOCAL_PRODUCTS = [
   { id: 30, name: 'PoE Dome Camera (RLC-1240A)',       category: 'Security',           vendor: 'Reolink',          url: 'https://reolink.com/us/product/rlc-1240a/', price: 118.99 },
   { id: 31, name: 'Lock Depot Rack',                   category: 'Construction',       vendor: 'Home Depot',       url: 'https://www.homedepot.com/p/Everbilt-1-1-2-in-x-1-ft-14-Gauge-Thick-Zinc-Plated-Slotted-Steel-Angle-61102/332733629', price: null },
   { id: 32, name: 'PoE Cat 6 Cable',                   category: 'MEP',                vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B07CT7XY2K', price: null },
+  { id: 33, name: 'Security Camera Mount Bracket',    category: 'Security',           vendor: 'Amazon',           url: 'https://www.amazon.com/compcctv-Security-Aluminum-Mounting-Universal/dp/B0BCPJW1MD/', price: 19.99 },
 ];
 
 const CATEGORY_BADGE_COLORS = {

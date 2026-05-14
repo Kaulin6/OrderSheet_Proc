@@ -133,8 +133,12 @@ INSERT INTO products (id, name, category, vendor, url, price, image_url) VALUES
   (26, 'Portable Toilet',                'Temporary Facility', 'Zters',            'https://www.zters.com/', NULL, 'images/products/26.jpg'),
   (27, 'Gravel Bag',                     'Construction',       'Rockland',         'https://rocklandsupplies.com/product/bulk-bag-road-crush/', 185.00, 'images/products/27.jpg');
 
+-- Additional products
+INSERT INTO products (name, category, vendor, url, price) VALUES
+  ('PoE Dome Camera (RLC-1240A)', 'Security', 'Reolink', 'https://reolink.com/us/product/rlc-1240a/', 118.99);
+
 -- Reset the sequence to continue after our seeded IDs
-SELECT setval('products_id_seq', 27);
+SELECT setval('products_id_seq', (SELECT MAX(id) FROM products));
 
 -- ============================================
 -- Example kit (optional - can be removed)

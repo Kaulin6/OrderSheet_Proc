@@ -136,7 +136,9 @@ INSERT INTO products (id, name, category, vendor, url, price, image_url) VALUES
 -- Additional products
 INSERT INTO products (name, category, vendor, url, price) VALUES
   ('PoE Dome Camera (RLC-1240A)', 'Security', 'Reolink', 'https://reolink.com/us/product/rlc-1240a/', 118.99),
-  ('Security Camera Mount Bracket', 'Security', 'Amazon', 'https://www.amazon.com/compcctv-Security-Aluminum-Mounting-Universal/dp/B0BCPJW1MD/', 19.99);
+  ('Security Camera Mount Bracket', 'Security', 'Amazon', 'https://www.amazon.com/compcctv-Security-Aluminum-Mounting-Universal/dp/B0BCPJW1MD/', 19.99),
+  ('CAT6 Direct Burial Cable (500ft)', 'MEP', 'Amazon', 'https://www.amazon.com/dp/B07GH7JHG9?ref=fed_asin_title&th=1', 84.99),
+  ('CAT6 Direct Burial Cable (1000ft)', 'MEP', 'Amazon', 'https://www.amazon.com/dp/B07BW7CHWB?ref=fed_asin_title&th=1', 144.99);
 
 -- Reset the sequence to continue after our seeded IDs
 SELECT setval('products_id_seq', (SELECT MAX(id) FROM products));

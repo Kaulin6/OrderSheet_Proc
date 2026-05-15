@@ -36,6 +36,8 @@ const LOCAL_PRODUCTS = [
   { id: 31, name: 'Lock Depot Rack',                   category: 'Construction',       vendor: 'Home Depot',       url: 'https://www.homedepot.com/p/Everbilt-1-1-2-in-x-1-ft-14-Gauge-Thick-Zinc-Plated-Slotted-Steel-Angle-61102/332733629', price: null },
   { id: 32, name: 'PoE Cat 6 Cable',                   category: 'MEP',                vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B07CT7XY2K', price: null },
   { id: 33, name: 'Security Camera Mount Bracket',    category: 'Security',           vendor: 'Amazon',           url: 'https://www.amazon.com/compcctv-Security-Aluminum-Mounting-Universal/dp/B0BCPJW1MD/', price: 19.99 },
+  { id: 34, name: 'CAT6 Direct Burial Cable (500ft)',  category: 'MEP',                vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B07GH7JHG9?ref=fed_asin_title&th=1', price: 84.99 },
+  { id: 35, name: 'CAT6 Direct Burial Cable (1000ft)', category: 'MEP',                vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B07BW7CHWB?ref=fed_asin_title&th=1', price: 144.99 },
 ];
 
 const CATEGORY_BADGE_COLORS = {

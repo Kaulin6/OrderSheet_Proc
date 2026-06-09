@@ -39,6 +39,7 @@ const LOCAL_PRODUCTS = [
   { id: 34, name: 'CAT6 Direct Burial Cable (500ft)',  category: 'MEP',                vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B07GH7JHG9?ref=fed_asin_title&th=1', price: 84.99 },
   { id: 35, name: 'CAT6 Direct Burial Cable (1000ft)', category: 'MEP',                vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B07BW7CHWB?ref=fed_asin_title&th=1', price: 144.99 },
   { id: 36, name: 'Sign Mounting Bracket (50pcs)',    category: 'Signage',            vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B0D6268QWN', price: 46.99 },
+  { id: 37, name: 'Fire Extinguisher (5lb ABC)',      category: 'Security',           vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B00F5CKJJU', price: 75.00 },
 ];
 
 const CATEGORY_BADGE_COLORS = {

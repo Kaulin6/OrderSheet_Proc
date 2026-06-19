@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS orders (
   requested_by text NOT NULL,
   business_unit text NOT NULL,
   project_name text NOT NULL,
+  shipping_address text,
   date_requested date NOT NULL,
   deadline date,
   notes text,

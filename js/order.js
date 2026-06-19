@@ -26,6 +26,7 @@ const Order = (() => {
     }
     const businessUnit = document.getElementById('business-unit').value;
     const projectName = document.getElementById('project-name').value;
+    const shippingAddress = document.getElementById('shipping-address').value;
     const dateRequested = document.getElementById('date-requested').value;
     const deadline = document.getElementById('deadline').value;
     const notes = document.getElementById('notes').value;
@@ -63,6 +64,7 @@ const Order = (() => {
             requested_by: requestedBy,
             business_unit: businessUnit,
             project_name: projectName,
+            shipping_address: shippingAddress,
             date_requested: dateRequested,
             deadline: deadline || null,
             notes: notes || null,
@@ -83,7 +85,7 @@ const Order = (() => {
 
       // Send email via EmailJS if configured
       try {
-        await sendOrderEmail({ requestedBy, requesterEmail, businessUnit, projectName, dateRequested, deadline, notes, totalPrice, orderData });
+        await sendOrderEmail({ requestedBy, requesterEmail, businessUnit, projectName, shippingAddress, dateRequested, deadline, notes, totalPrice, orderData });
       } catch (emailError) {
         console.warn('Email failed (order still saved):', emailError);
       }
@@ -103,7 +105,7 @@ const Order = (() => {
     }
   }
 
-  async function sendOrderEmail({ requestedBy, requesterEmail, businessUnit, projectName, dateRequested, deadline, notes, totalPrice, orderData }) {
+  async function sendOrderEmail({ requestedBy, requesterEmail, businessUnit, projectName, shippingAddress, dateRequested, deadline, notes, totalPrice, orderData }) {
     const itemLines = orderData.map(item => {
       const price = item.unitPrice > 0 ? `$${item.lineTotal.toFixed(2)}` : 'TBD';
       let line = `${item.quantity}x ${item.name} — ${price}`;
@@ -119,6 +121,7 @@ const Order = (() => {
       requested_by: requestedBy,
       business_unit: businessUnit,
       project_name: projectName,
+      shipping_address: shippingAddress,
       date_requested: dateRequested,
       deadline: deadline || 'N/A',
       notes: notes || 'None',

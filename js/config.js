@@ -48,5 +48,6 @@ const CONFIG = {
     'MEP',
     'Signage',
     'Construction',
+    'Nat Gas',
   ],
 };

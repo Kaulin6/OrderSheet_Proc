@@ -143,7 +143,8 @@ INSERT INTO products (name, category, vendor, url, price) VALUES
   ('Sign Mounting Bracket (50pcs)', 'Signage', 'Amazon', 'https://www.amazon.com/dp/B0D6268QWN', 46.99),
   ('Fire Extinguisher (5lb ABC)', 'Security', 'Amazon', 'https://www.amazon.com/dp/B00F5CKJJU', 75.00),
   ('Fire Extinguisher Sticker', 'Signage', 'Amazon', 'https://www.amazon.com/dp/B0089OZH02', 6.85),
-  ('Fire Extinguisher Cover', 'Security', 'Amazon', 'https://www.amazon.com/dp/B0CSVNGFG5?ref=fed_asin_title&th=1', 15.99);
+  ('Fire Extinguisher Cover', 'Security', 'Amazon', 'https://www.amazon.com/dp/B0CSVNGFG5?ref=fed_asin_title&th=1', 15.99),
+  ('Fairview GR-9984 Automatic Changeover Propane Regulator', 'MEP', 'Amazon', 'https://www.amazon.com/dp/B0CJL6M1S4', 47.99);
 
 -- Reset the sequence to continue after our seeded IDs
 SELECT setval('products_id_seq', (SELECT MAX(id) FROM products));

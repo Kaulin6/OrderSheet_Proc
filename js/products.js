@@ -42,6 +42,7 @@ const LOCAL_PRODUCTS = [
   { id: 37, name: 'Fire Extinguisher (5lb ABC)',      category: 'Security',           vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B00F5CKJJU', price: 75.00 },
   { id: 38, name: 'Fire Extinguisher Sticker',        category: 'Signage',            vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B0089OZH02', price: 6.85 },
   { id: 39, name: 'Fire Extinguisher Cover',          category: 'Security',           vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B0CSVNGFG5?ref=fed_asin_title&th=1', price: 15.99 },
+  { id: 40, name: 'Fairview GR-9984 Automatic Changeover Propane Regulator', category: 'MEP', vendor: 'Amazon',    url: 'https://www.amazon.com/dp/B0CJL6M1S4', price: 47.99 },
 ];
 
 const CATEGORY_BADGE_COLORS = {

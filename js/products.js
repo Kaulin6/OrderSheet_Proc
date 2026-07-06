@@ -44,6 +44,7 @@ const LOCAL_PRODUCTS = [
   { id: 39, name: 'Fire Extinguisher Cover',          category: 'Security',           vendor: 'Amazon',           url: 'https://www.amazon.com/dp/B0CSVNGFG5?ref=fed_asin_title&th=1', price: 15.99 },
   { id: 40, name: 'Fairview GR-9984 Automatic Changeover Propane Regulator', category: 'MEP', vendor: 'Amazon',    url: 'https://www.amazon.com/dp/B0CJL6M1S4', price: 47.99 },
   { id: 41, name: 'SUNGATOR Brass Half-Union 3/8" MNPT x 3/8" Male Flare (2-Pack)', category: 'MEP', vendor: 'Amazon', url: 'https://www.amazon.com/dp/B07XDYJZ9X', price: 6.99 },
+  { id: 42, name: 'GasSaf Stainless Braided Propane Hose Connector (Inverted Flare)', category: 'MEP', vendor: 'Amazon', url: 'https://www.amazon.com/dp/B07YWN6KT7', price: 20.99 },
 ];
 
 const CATEGORY_BADGE_COLORS = {

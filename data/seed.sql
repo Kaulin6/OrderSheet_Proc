@@ -145,7 +145,8 @@ INSERT INTO products (name, category, vendor, url, price) VALUES
   ('Fire Extinguisher Sticker', 'Signage', 'Amazon', 'https://www.amazon.com/dp/B0089OZH02', 6.85),
   ('Fire Extinguisher Cover', 'Security', 'Amazon', 'https://www.amazon.com/dp/B0CSVNGFG5?ref=fed_asin_title&th=1', 15.99),
   ('Fairview GR-9984 Automatic Changeover Propane Regulator', 'MEP', 'Amazon', 'https://www.amazon.com/dp/B0CJL6M1S4', 47.99),
-  ('SUNGATOR Brass Half-Union 3/8" MNPT x 3/8" Male Flare (2-Pack)', 'MEP', 'Amazon', 'https://www.amazon.com/dp/B07XDYJZ9X', 6.99);
+  ('SUNGATOR Brass Half-Union 3/8" MNPT x 3/8" Male Flare (2-Pack)', 'MEP', 'Amazon', 'https://www.amazon.com/dp/B07XDYJZ9X', 6.99),
+  ('GasSaf Stainless Braided Propane Hose Connector (Inverted Flare)', 'MEP', 'Amazon', 'https://www.amazon.com/dp/B07YWN6KT7', 20.99);
 
 -- Reset the sequence to continue after our seeded IDs
 SELECT setval('products_id_seq', (SELECT MAX(id) FROM products));
